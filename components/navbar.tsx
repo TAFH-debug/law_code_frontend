@@ -7,6 +7,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@heroui/navbar";
+import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
@@ -23,7 +24,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <p className="font-bold text-inherit">[NAME HERE]</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -44,9 +45,16 @@ export const Navbar = () => {
         </ul>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+      <NavbarContent className="basis-1 pl-4" justify="end">
+        <NavbarItem>
+          <Button as={Link} color="primary" href="#" variant="flat">
+            Sign Up
+          </Button>
+        </NavbarItem>
         <ThemeSwitch />
-        <NavbarMenuToggle />
+        <div className="lg:hidden">
+          <NavbarMenuToggle />
+        </div>
       </NavbarContent>
 
       <NavbarMenu>
