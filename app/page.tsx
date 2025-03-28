@@ -10,15 +10,19 @@ import { GithubIcon } from "@/components/icons";
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
+      <div className="inline-block max-w-xxl text-center justify-center">
+        <span className={title()}>Интерактивная обучения полицейских:&nbsp;</span>
         <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
+        <span className={title({ color: "blue" })}>реальные сценарии&nbsp;</span>
+        <span className={title()}>—&nbsp;</span>
+        <span className={title({ color: "red" })}>реальные навыки&nbsp;</span>
+        <br />
+
+      </div>
+
+      <div className="inline-block max-w-xl text-center justify-center">
         <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+          Виртуальная среда для отработки решений в стрессовых ситуациях и повышения эффективности действий на месте происшествия.
         </div>
       </div>
 
@@ -32,25 +36,11 @@ export default function Home() {
           })}
           href={siteConfig.links.docs}
         >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
+          Начать
         </Link>
       </div>
 
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
+      <p></p>
     </section>
   );
 }
