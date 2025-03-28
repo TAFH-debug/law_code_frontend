@@ -47,7 +47,7 @@ export const Navbar = () => {
 
       <NavbarContent className="basis-1 pl-4" justify="end">
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button as={Link} color="primary" href="#" variant="bordered">
             Sign Up
           </Button>
         </NavbarItem>
