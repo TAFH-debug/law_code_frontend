@@ -1,32 +1,38 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Card } from "@heroui/card";
 import { motion } from "framer-motion";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<{ text: string; sender: "user" | "bot" }[]>([]);
   const [input, setInput] = useState("");
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
-  const sendMessage = () => {
+  const sendMessage = useCallback(() => {
     if (!input.trim()) return;
-    setMessages([...messages, { text: input, sender: "user" }]);
+    setMessages((prev) => [...prev, { text: input, sender: "user" }]);
     setInput("");
-  };
+  }, [input]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.lastElementChild?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
       <Card className="relative w-full max-w-md flex flex-col h-[500px] shadow-2xl rounded-xl overflow-hidden bg-black/60 border border-gray-700 backdrop-blur-md">
-        <ScrollArea className="flex-1 p-4 space-y-3">
+        <div ref={chatContainerRef} className="flex-1 p-4 space-y-3 overflow-auto">
           {messages.map((msg, index) => (
             <motion.div
               key={index}
@@ -42,17 +48,18 @@ export default function ChatPage() {
               {msg.text}
             </motion.div>
           ))}
-        </ScrollArea>
+        </div>
 
         <div className="p-3 bg-gray-800 flex items-center gap-3 border-t border-gray-700">
           <Input
+            ref={inputRef}
             placeholder="Введите сообщение..."
             className="flex-1 bg-gray-900 text-white border-gray-600"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           />
-          <Button onClick={sendMessage} className="bg-blue-500 hover:bg-blue-600">
+          <Button onPress={sendMessage} className="bg-blue-500 hover:bg-blue-600">
             =>
           </Button>
         </div>
