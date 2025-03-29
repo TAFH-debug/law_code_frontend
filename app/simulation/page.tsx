@@ -70,8 +70,8 @@ export default function VRPage() {
             <div className="min-h-[50vh]">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
                 {sims.map((sim) => (
-                  <HoverContainer >
-                    <HoverBody key={sim.id}  >
+                  <HoverContainer key={sim.id}>
+                    <HoverBody>
                       <HoverItem translateZ={40}>
                         <motion.div 
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -79,14 +79,14 @@ export default function VRPage() {
                           className="flex flex-col items-center justify-center min-h-10 rounded-lg"
                         >
                           <Card isPressable as={Link} href={`/simulation/${sim.id}`} className="rounded-xl shadow-lg p-2">
-                            <CardHeader className="">
-                              <p className="text-center text-md w-full">{sim.name}</p>
+                            <CardHeader className="select-none">
+                              <p className="text-center text-md w-full select-none">{sim.name}</p>
                             </CardHeader>
-                            <Divider className=""/> 
+                            <Divider className="select-none"/> 
                             <CardBody className="flex flex-row w-full space-x-4 items-center justify-center">
-                              <p className="text-sm flex-grow-1">{sim.description}</p>
+                              <p className="text-sm flex-grow-1 select-none">{sim.description}</p>
                               <div className="flex flex-row space-x-4 items-center justify-center">
-                                <Divider orientation="vertical" className="h-7"></Divider>
+                                <Divider orientation="vertical" className="h-7 select-none"></Divider>
                                 <AnimatedCircularProgressBar
                                   max={100}
                                   min={0}
