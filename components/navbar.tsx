@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as Nav,
   NavbarContent,
@@ -7,6 +8,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@heroui/navbar";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { link as linkStyles } from "@heroui/theme";
@@ -28,8 +30,33 @@ export const Navbar = () => {
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
+          <Dropdown placement="bottom-start">
+            <DropdownTrigger>
+              <NextLink href="#">Trainings</NextLink>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              {
+                siteConfig.trainingItems.map((item) => {
+                  return (
+                    <DropdownItem key={item.href} className="flex items-center gap-2">
+                      <NextLink
+                        className={clsx(
+                          linkStyles({ color: "foreground" }),
+                          "data-[active=true]:text-primary data-[active=true]:font-medium",
+                        )}
+                        color="foreground"
+                        href={item.href}
+                      >
+                        {item.label}
+                      </NextLink>
+                    </DropdownItem>
+                  )
+                })
+              }
+            </DropdownMenu>
+          </Dropdown>
           {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
+            <NavbarItem key={item.href} className="flex items-center">
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
@@ -60,7 +87,7 @@ export const Navbar = () => {
       <NavbarMenu>
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
+            <NavbarMenuItem key={`${item}-${index}`} className="flex items-center">
               <Link
                 color={
                   index === 2

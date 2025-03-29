@@ -8,26 +8,30 @@ export const sitePages = [
   {
     label: "Archive",
     href: "/docs",
+  }
+];
+
+const trainingPages = [
+  {
+    label: "Cyber simulations",
+    href: "/cyber_simulation"
   },
   {
-    label: "Training",
-    href: "/pricing",
+    label: "Simulations",
+    href: "/simulation"
   },
   {
     label: "Bot",
-    href: "/bot",
+    href: "/bot"
   },
-  {
-    label: "Simulation",
-    href: "/simulation",
-  },
-]
+];
 
 export const siteConfig = {
   name: "Next.js + HeroUI",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: sitePages,
-  navMenuItems: sitePages,
+  trainingItems: trainingPages,
+  navMenuItems: sitePages.concat(trainingPages),
   links: {
     github: "https://github.com/heroui-inc/heroui",
     twitter: "https://twitter.com/hero_ui",

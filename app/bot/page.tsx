@@ -51,6 +51,10 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
+    <>
+    <div>
+      <h1 className="text-center text-3xl font-bold mb-4">Бот помощник по нормативно-правовым актам Республики Казахстан</h1>
+    </div>
     <Card className="m-auto relative w-full flex flex-col h-[500px] shadow-2xl rounded-xl overflow-hidden bg-black/60 border border-gray-700 backdrop-blur-md">
       <div ref={chatContainerRef} className="flex-1 p-4 space-y-3 overflow-auto">
         {messages.map((msg, index) => (
@@ -93,5 +97,6 @@ export default function ChatPage() {
         </Button>
       </div>
     </Card>
+    </>
   );
 }
