@@ -28,8 +28,7 @@ export const Hero = () => {
       </div>
 
       <div className="flex gap-3">
-        <Link className={buttonStyles({ color: "primary", radius: "lg", variant: "shadow",
-          })}
+        <Link className={buttonStyles({ color: "primary", radius: "lg", variant: "shadow" }) + " text-secondary-foreground"}
           href={siteConfig.links.docs}
         >
           Начать
@@ -39,8 +38,6 @@ export const Hero = () => {
           Узнать больше
         </Button>
       </div>
-
-
       <div></div>
     </section>
   );
