@@ -28,13 +28,13 @@ export const Hero = () => {
       </div>
 
       <div className="flex gap-3">
-        <Link className={buttonStyles({ color: "primary", radius: "large", variant: "shadow",
+        <Link className={buttonStyles({ color: "primary", radius: "lg", variant: "shadow",
           })}
           href={siteConfig.links.docs}
         >
           Начать
         </Link>
-        <Button className={buttonStyles({ color: "secondary", radius: "large", variant: "shadow" })}
+        <Button className={buttonStyles({ color: "secondary", radius: "lg", variant: "shadow" })}
                 onPress={() => document.getElementById('scroll')?.scrollIntoView({ behavior: 'smooth' })}>
           Узнать больше
         </Button>

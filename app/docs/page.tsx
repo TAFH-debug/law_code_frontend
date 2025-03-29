@@ -53,7 +53,8 @@ export default function ArchivePage() {
                   ) : (
                     <FileText className="w-20 h-20 text-gray-400" />
                   )}
-                  <p className="mt-2 text-center text-sm">{file.name}</p>
+                  <p className="mt-2 text-center text-md">{file.name}</p>
+                  <p className="mt-2 text-center text-sm">{file.description}</p>
                   </motion.div>
                 </Card>
               ))}

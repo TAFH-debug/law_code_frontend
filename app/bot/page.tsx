@@ -22,7 +22,7 @@ export default function ChatPage() {
       inputRef.current.focus();
     }
 
-    ws.current = new WebSocket("ws://localhost:8000/negotiations/?client_id=2");
+    ws.current = new WebSocket("ws://localhost:8000/negotiations/ws");
 
     ws.current.onmessage = ((m: any) => {
       const e: { idx: number, chunk: string } = JSON.parse(m.data);

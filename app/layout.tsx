@@ -50,8 +50,8 @@ export default function RootLayout({
             <footer className="w-full flex items-center justify-center py-7">
               <Link
                 className="flex items-center gap-1 text-current"
-                href="https://heroui.com?utm_source=next-app-template"
-                title="heroui.com homepage"
+                href="https://terricon.kz"
+                title="terricon homepage"
               >
                 <span className="text-default-600">Made for</span>
                 <p className="text-primary">Terricon Valley</p>
