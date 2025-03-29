@@ -5,6 +5,7 @@ import { FileText, ImageIcon, VideoIcon } from "lucide-react";
 import {Pagination} from "@heroui/pagination";
 import { motion } from "framer-motion";
 import { axiosInstance } from "@/lib/axios";
+import Link from "next/link";
 
 
 interface FileItem {
@@ -16,14 +17,15 @@ interface FileItem {
 }
 
 export default function ArchivePage() {
-  const [files, setFiles] = useState<FileItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<{ resources: FileItem[], total_pages: number }>({
+    resources: [],
+    total_pages: 1,
+  });
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     axiosInstance.get(`/resources/?page=${page}`).then((res) => {
-      setFiles(res.data);
-      setLoading(false);
+      setData(res.data);
     }).catch((err) => {
       console.error(err);
     })
@@ -33,15 +35,12 @@ export default function ArchivePage() {
     <div className="w-full p-6 h-full">
       <div className="max-w-3xl mx-auto h-full">
         <h1 className="text-3xl font-bold text-center mb-6">Архив</h1>
-
-        {loading ? (
-          <p className="text-center">Загрузка файлов...</p>
-        ) : (
+        {(
           <>
           <div className="min-h-[50vh]">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {files.map((file) => (
-                <Card key={file.id} className="p-4 rounded-xl shadow-lg">
+              {data.resources.map((file) => (
+                <Card key={file.id} as={Link} href={"/docs/" + file.id} className="p-4 rounded-xl shadow-lg">
                   <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -54,14 +53,13 @@ export default function ArchivePage() {
                     <FileText className="w-20 h-20 text-gray-400" />
                   )}
                   <p className="mt-2 text-center text-md">{file.name}</p>
-                  <p className="mt-2 text-center text-sm">{file.description}</p>
                   </motion.div>
                 </Card>
               ))}
             </div>
           </div>
           <div className="mt-6 flex justify-center">
-            <Pagination isCompact showControls initialPage={1} total={10} page={page} onChange={setPage}/>
+            <Pagination isCompact showControls initialPage={1} total={data.total_pages} page={page} onChange={setPage}/>
           </div>
           </>
         )}

@@ -6,35 +6,25 @@ import { Pagination } from "@heroui/pagination";
 import { motion } from "framer-motion";
 import { AnimatedCircularProgressBar } from "@/components/magicui/animated-circular-progress-bar";
 import { Link } from "@heroui/link";
+import { axiosInstance } from "@/lib/axios";
 
 interface Simulation {
   id: number;
   name: string;
   description: string;
-  score: number
 }
 
-export default function VRPage() {
-  const [sims, setSims] = useState<Simulation[]>([]);
+export default function Page() {
+  const [sims, setSims] = useState<{ simulations: Simulation[], total_pages: number }>({
+    simulations: [],
+    total_pages: 1,
+  });
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const pageSize = 15;
-
-  const fakeSims: Simulation[] = [];
-  for (let i = 1; i <= 100; i++) {
-    fakeSims.push({
-      id: i,
-      name: `Simulation ${i}`,
-      description: `Description for Simulation ${i}`,
-      score: Math.floor(Math.random() * 100),
-    });
-  }
-  const totalPages = Math.ceil(fakeSims.length / pageSize);
 
   useEffect(() => {
     setLoading(true);
 
-    /*
     axiosInstance.get(`/simulations/?page=${page}`).then((res) => {
       setSims(res.data);
       setLoading(false);
@@ -42,12 +32,6 @@ export default function VRPage() {
       console.error(err);
       setLoading(false);
     });
-    */
-
-    const startIndex = (page - 1) * pageSize;
-    const paginatedFiles = fakeSims.slice(startIndex, startIndex + pageSize);
-    setSims(paginatedFiles);
-    setLoading(false);
   }, [page]);
 
   return (
@@ -61,7 +45,7 @@ export default function VRPage() {
           <>
             <div className="min-h-[50vh]">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                {sims.map((sim) => (
+                {sims.simulations.map((sim) => (
                   <motion.div 
                     key={sim.id}
                     whileHover={{ scale: 1.1 }}
@@ -81,7 +65,7 @@ export default function VRPage() {
                           <AnimatedCircularProgressBar
                             max={100}
                             min={0}
-                            value={sim.score}
+                            value={100}
                             gaugePrimaryColor={sim.id % 2 === 0 ? "#e22323" : "#438de1"}
                             gaugeSecondaryColor="rgba(0, 0, 0, 0.1)"
                           />
@@ -97,7 +81,7 @@ export default function VRPage() {
                 isCompact 
                 showControls 
                 initialPage={1} 
-                total={totalPages} 
+                total={sims.total_pages} 
                 page={page} 
                 onChange={setPage}
               />

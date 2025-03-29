@@ -2,26 +2,26 @@ export type SiteConfig = typeof siteConfig;
 
 export const sitePages = [
   {
-    label: "Home",
+    label: "Домашняя страница",
     href: "/",
   },
   {
-    label: "Archive",
+    label: "Архив",
     href: "/docs",
   }
 ];
 
 const trainingPages = [
   {
-    label: "Cyber simulations",
+    label: "Кибер симуляции",
     href: "/cyber_simulation"
   },
   {
-    label: "Simulations",
+    label: "Симуляции переговоров",
     href: "/simulation"
   },
   {
-    label: "Bot",
+    label: "Бот помощник",
     href: "/bot"
   },
 ];

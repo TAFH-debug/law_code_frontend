@@ -18,8 +18,17 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Logo } from "@/components/icons";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
+  const [isUser, setIsUser] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem('token') !== null) {
+      setIsUser(true);
+    }
+  }, []);
+  
   return (
     <Nav maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -32,7 +41,7 @@ export const Navbar = () => {
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
           <Dropdown placement="bottom-start">
             <DropdownTrigger>
-              <NextLink href="#">Trainings</NextLink>
+              <NextLink href="#">Тренировки</NextLink>
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               {
@@ -74,9 +83,18 @@ export const Navbar = () => {
 
       <NavbarContent className="basis-1 pl-4" justify="end">
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="bordered">
-            Sign Up
-          </Button>
+          {
+            isUser ? (
+              <Button as={Link} color="primary" href="/profile" variant="bordered">
+                Profile
+              </Button>
+            ) : (
+              <Button as={Link} color="primary" href="/signup" variant="bordered">
+              Sign Up
+              </Button>
+            )
+          }
+
         </NavbarItem>
         <ThemeSwitch />
         <div className="lg:hidden">

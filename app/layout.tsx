@@ -33,11 +33,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en" className="hide_scrollbar">
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
+          "hide_scrollbar min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
