@@ -31,7 +31,7 @@ const trainingPages = [
 ];
 
 export const siteConfig = {
-  name: "[NAME HERE]",
+  name: "PoliceSim",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: sitePages,
   trainingItems: trainingPages,

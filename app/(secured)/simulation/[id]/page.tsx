@@ -144,7 +144,10 @@ export default function Page() {
                 {
                     actions.map((action, index) => {
                         return (
-                            <Button key={index} className="m-2 text-wrap" onPress={() => ws.current?.send(JSON.stringify({ id: action.id }))}>
+                            <Button key={index} className="flex m-2 text-wrap" onPress={() => {
+                                ws.current?.send(JSON.stringify({ id: action.id }));
+                                setTimer(30);
+                                }}>
                                 {action.description}
                             </Button>
                         )

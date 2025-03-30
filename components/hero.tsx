@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Link } from "@heroui/link";
 import { button as buttonStyles } from "@heroui/theme";
-import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import { Button } from "@heroui/button";
 
