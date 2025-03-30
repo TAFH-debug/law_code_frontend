@@ -31,7 +31,7 @@ const trainingPages = [
 ];
 
 export const siteConfig = {
-  name: "Next.js + HeroUI",
+  name: "[NAME HERE]",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: sitePages,
   trainingItems: trainingPages,

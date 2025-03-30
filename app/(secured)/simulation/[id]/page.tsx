@@ -50,7 +50,7 @@ export default function Page() {
                 if (data.end) {
                     ws.current?.close();
                     setScore(data.score);
-                    addToast({ description: "Simulation ended" });
+                    addToast({ description: "Симуляция закончена." });
                     return;
                 }
                 data.messages.forEach((message: any) => message.sender = "bot");

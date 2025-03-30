@@ -29,7 +29,7 @@ export const Hero = () => {
 
       <div className="flex gap-3">
         <Link className={buttonStyles({ color: "primary", radius: "lg", variant: "shadow" }) + " text-secondary-foreground"}
-          href={siteConfig.links.docs}
+          href="/profile"
         >
           Начать
         </Link>

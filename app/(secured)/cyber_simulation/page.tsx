@@ -8,6 +8,7 @@ import { Card } from "@heroui/card";
 import { AnimatedCircularProgressBarLarge } from "@/components/magicui/animated-circular-progress-bar-large";
 import { Button } from "@heroui/button";
 import Link from "next/link";
+import { axiosInstance } from "@/lib/axios";
 
 interface File {
     name: string;
@@ -21,10 +22,19 @@ interface Task {
 }
 
 const exampleTask: Task = {
-    description: 'Привет, это тестовое задание.',
+    description: 'Привет это тестовое задание. Напиши help для получения списка команд. \
+    Найди флаг в логах системы.',
     files: [
-        { name: 'file1.txt', content: 'Это содержимое файла 1.' },
-        { name: 'file2.txt', content: 'Это содержимое файла 2.' },
+        {   name: 'linux1.logs', 
+            content: 
+            'Mar 30 14:25:17 server01 sshd[25437]: Accepted publickey for admin from 192.168.1.105 port 59022 ssh2: RSA SHA256:k8HU7JyI8h4jf5K+fzjL0/SnJLa+dTa+K2EhQzyElnQ \n \
+Mar 30 14:25:17 server01 systemd-logind[684]: New session 294 of user admin.\n \
+Mar 30 14:27:32 server01 kernel: [4231152.152531] CPU2: Core temperature above threshold, cpu clock throttled (total events = 1) \n \
+Mar 30 14:30:05 server01 nginx[1234]: 192.168.0.14 - - [30/Mar/2025:14:30:05 +0000] "GET /api/v1/status HTTP/1.1" 200 1024 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \n \
+Mar 30 14:32:18 server01 cron[8642]: (root) CMD (/usr/local/bin/backup.sh) \n \
+Mar 30 14:35:01 server01 systemd[1]: Starting Daily apt upgrade and clean activities... \n \
+Mar 30 14:35:07 server01 sudo[29578]: admin : TTY=pts/0 ; PWD=/home/admin ; USER=root ; COMMAND=/bin/systemctl restart postgresql' }, 
+        { name: 'linux2.logs', content: 'flag{example_flag}' },
     ],
     flag: 'flag{example_flag}'
 }
@@ -51,7 +61,12 @@ export default function Page() {
         let result = '';
         switch (command) {
             case 'help':
-                result = 'Доступные команды: help, task, files, cat, flag';
+                result = 'Доступные команды: \n \
+                help - показать список команд \n \
+                task - показать описание задачи \n \
+                files - показать файлы \n \
+                cat <имя_файла> - показать содержимое файла \n \
+                flag <флаг> - проверить флаг \n \ ';
                 break;
             case 'task':
                 result = task!.description;
@@ -80,6 +95,7 @@ export default function Page() {
             const flag = command.substring(5).trim();
             if (flag === task!.flag) {
                 result = 'Поздравляю! Ты нашел флаг!';
+                axiosInstance.put("/users/me?score=100");
                 setScore(100);
                 addToast({
                     description: 'Симуляция завершена!',
@@ -139,7 +155,7 @@ export default function Page() {
             {
                 messages.map((msg, index) => {
                     return (
-                        <div key={index} className='text-md'>
+                        <div key={index} className='text-md text-wrap'>
                             {msg}
                         </div>
                     )

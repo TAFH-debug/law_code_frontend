@@ -19,12 +19,8 @@ export default function Page() {
     const [history, setHistory] = useState<History[]>([]);
 
     useEffect(() => {
-      axiosInstance.get('/users/me').then((res) => {
-        for (let i of JSON.parse(res.data.history)) {
-          axiosInstance.get("/history/" + i).then((res) => {
-            setHistory((prev) => [...prev, res.data]);
-          });
-        }
+      axiosInstance.get('/history/me').then((res) => {
+        setHistory(res.data);
       });
     }, []);
 

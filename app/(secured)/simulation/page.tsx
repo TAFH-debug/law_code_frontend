@@ -37,7 +37,7 @@ export default function Page() {
   return (
     <div className="w-full p-6 h-full translate-y-[-50px]">
       <div className="max-w-6xl mx-auto h-full">
-        <h1 className="text-3xl font-bold text-center mb-6">Simulations</h1>
+        <h1 className="text-3xl font-bold text-center mb-6">Симуляции</h1>
 
         {loading ? (
           <p className="text-center">Загрузка файлов...</p>
