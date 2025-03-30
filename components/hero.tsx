@@ -10,7 +10,7 @@ import { Button } from "@heroui/button";
 export const Hero = () => {
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-full">
       <div className="inline-block max-w-xxl text-center justify-center">
         <span className={title()}>Интерактивная платформа для обучения полицейских:&nbsp;</span>
         <br />

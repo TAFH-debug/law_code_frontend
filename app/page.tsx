@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <div id="scroll" className="flex flex-row gap-20 justify-center items-stretch max-w-8xl mb-10">
+      <div id="scroll" className="flex flex-col md:flex-row gap-20 justify-center items-stretch max-w-8xl mb-10">
         <div className="w-[500px] ">
           <Block BlockTitle="Что делает нашу платформу уникальной?"/>
           <Accordion variant="shadow">

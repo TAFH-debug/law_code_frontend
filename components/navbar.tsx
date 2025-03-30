@@ -85,9 +85,18 @@ export const Navbar = () => {
         <NavbarItem>
           {
             isUser ? (
-              <Button as={Link} color="primary" href="/profile" variant="bordered">
-                Profile
-              </Button>
+              <>
+                <Button as={Link} color="primary" href="/profile" variant="bordered" className="mr-2">
+                  Профиль
+                </Button>
+                <Button color="primary" variant="bordered" onPress={() => {
+                  localStorage.removeItem('token');
+                  setIsUser(false);
+                  window.location.href = '/signin';
+                }}>
+                  Выйти
+                </Button>
+              </>
             ) : (
               <Button as={Link} color="primary" href="/signup" variant="bordered">
               Sign Up

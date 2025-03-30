@@ -22,8 +22,7 @@ interface Task {
 }
 
 const exampleTask: Task = {
-    description: 'Привет это тестовое задание. Напиши help для получения списка команд. \
-    Найди флаг в логах системы.',
+    description: 'Привет это тестовое задание. Найди флаг в логах системы. Напиши help для получения списка команд.',
     files: [
         {   name: 'linux1.logs', 
             content: 

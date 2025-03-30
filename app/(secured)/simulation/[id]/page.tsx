@@ -40,7 +40,8 @@ export default function Page() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [actions, setActions] = useState<Action[]>([]);
     const [score, setScore] = useState<number | null>(null);
-
+    const [timer, setTimer] = useState<number>(30);
+    
     useEffect(() => {
         if (ws.current === null) {
             ws.current = new WebSocket("ws://localhost:8000/simulations/ws?id=" + id);
@@ -57,11 +58,23 @@ export default function Page() {
                 setMessages((prevMessages) => [...prevMessages, ...data.messages]);
                 setActions(data.actions);
             }
+
+            const interval = setInterval(() => {
+                setTimer((prevTimer) => {
+                    if (prevTimer <= 0) {
+                        ws.current?.close();
+                        setScore(0);
+                        clearInterval(interval);
+                        return prevTimer;
+                    }
+                    return prevTimer - 1;
+                });
+            }, 1000);
         }
     }, []);
 
     useEffect(() => {
-        if (score === null) return;
+        if (score === null || score == 0) return;
         const messages_s = JSON.stringify(messages);
 
         axiosInstance.post("/history", {
@@ -96,7 +109,7 @@ export default function Page() {
     }
 
     return (
-        <>
+        <div className="size-full flex">
         <div className="w-full flex flex-col h-full rounded-lg bg-accent">
             <div className="w-full flex flex-col max-h-full overflow-scroll">
             {
@@ -139,6 +152,10 @@ export default function Page() {
                 }
             </div>
         </div>
-        </>
+        <div className="mx-5 rounded-lg bg-accent p-5">
+            <h1 className="text-center font-bold text-3xl">Таймер</h1>
+            <h1 className="text-center text-4xl font-bold my-3">{timer}</h1>
+        </div>
+        </div>
     )
 }
