@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { axiosInstance } from "@/lib/axios";
 import Link from "next/link";
 
-
 interface FileItem {
   id: number;
   name: string;

@@ -4,6 +4,10 @@ import { TypingAnimation } from "@/components/magicui/typing-animation";
 import { addToast } from "@heroui/toast";
 import { useEffect, useState } from "react";
 import { Source_Code_Pro } from "next/font/google";
+import { Card } from "@heroui/card";
+import { AnimatedCircularProgressBarLarge } from "@/components/magicui/animated-circular-progress-bar-large";
+import { Button } from "@heroui/button";
+import Link from "next/link";
 
 interface File {
     name: string;
@@ -35,6 +39,7 @@ export default function Page() {
     const [cmd, setCmd] = useState<string>('> ');
     const [task, setTask] = useState<Task | null>(null);
     const [messages, setMessages] = useState<string[]>([]);
+    const [score, setScore] = useState<number | null>(null);
 
     useEffect(() => {
         setTask(exampleTask);
@@ -75,6 +80,7 @@ export default function Page() {
             const flag = command.substring(5).trim();
             if (flag === task!.flag) {
                 result = 'Поздравляю! Ты нашел флаг!';
+                setScore(100);
                 addToast({
                     description: 'Симуляция завершена!',
                     title: 'Успех!',
@@ -98,6 +104,26 @@ export default function Page() {
                 </TypingAnimation>
             </Terminal>
         )
+    }
+
+    if (score !== null) {
+        return <div className="flex flex-col justify-center items-center h-full">
+            <Card className="flex flex-col items-center">
+                <h1 className="font-bold text-lg m-5">Ты получил {score} очков за эту миссию.</h1>
+                <AnimatedCircularProgressBarLarge 
+                    className="m-5"
+                    max={100} 
+                    value={score} 
+                    min={0} 
+                    gaugePrimaryColor="#438de1"
+                    gaugeSecondaryColor="rgba(0, 0, 0, 0.1)"
+                >
+                </AnimatedCircularProgressBarLarge>
+                <Button className="m-5" color="primary" as={Link} href="/profile">
+                    Продолжить
+                </Button>
+            </Card>
+        </div>
     }
 
     return (

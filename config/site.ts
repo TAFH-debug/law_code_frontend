@@ -24,6 +24,10 @@ const trainingPages = [
     label: "Бот помощник",
     href: "/bot"
   },
+  {
+    label: "Анализ",
+    href: "/analysis"
+  }
 ];
 
 export const siteConfig = {

@@ -39,35 +39,43 @@ export default function Page() {
     const ws = useRef<WebSocket | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [actions, setActions] = useState<Action[]>([]);
-    const [isEnded, setIsEnded] = useState(false);
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState<number | null>(null);
 
     useEffect(() => {
-        ws.current = new WebSocket("ws://localhost:8000/simulations/ws?id=" + id);
+        if (ws.current === null) {
+            ws.current = new WebSocket("ws://localhost:8000/simulations/ws?id=" + id);
 
-        ws.current.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (data.end) {
-                ws.current?.close();
-                setIsEnded(true);
-                setScore(data.score);
-                handleEnd(data.score);
-                addToast({ description: "Simulation ended" });
-                return;
+            ws.current.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.end) {
+                    ws.current?.close();
+                    setScore(data.score);
+                    addToast({ description: "Simulation ended" });
+                    return;
+                }
+                data.messages.forEach((message: any) => message.sender = "bot");
+                setMessages((prevMessages) => [...prevMessages, ...data.messages]);
+                setActions(data.actions);
             }
-            data.messages.forEach((message: any) => message.sender = "bot");
-            setMessages((prevMessages) => [...prevMessages, ...data.messages]);
-            setActions(data.actions);
         }
     }, []);
 
-    function handleEnd(score: number) {
-        axiosInstance.put("/users/me?score=" + score).then((res) => {
-            addToast({ description: "Score updated", color: "success" });
-        });
-    }
+    useEffect(() => {
+        if (score === null) return;
+        const messages_s = JSON.stringify(messages);
 
-    if (isEnded) {
+        axiosInstance.post("/history", {
+            name: "Simulation " + id,
+            score: score,
+            messages: messages_s
+        }).then((res) => {
+            axiosInstance.put("/users/me?score=" + score + "&history=" + res.data.id).then((res) => {
+                addToast({ description: "Score updated", color: "success" });
+            });
+        })
+    }, [score]);
+
+    if (score !== null) {
         return <div className="flex flex-col justify-center items-center h-full">
             <Card className="flex flex-col items-center">
                 <h1 className="font-bold text-lg m-5">Ты получил {score} очков за эту миссию.</h1>
@@ -103,7 +111,7 @@ export default function Page() {
 
                     if (message.sender === "bot") return (
                         <div key={index} className="m-4 p-3 rounded-lg max-w-[75%] text-sm bg-blue-500">
-                            <TypingAnimation className="text-sm">
+                            <TypingAnimation duration={50} className="text-sm">
                             {message.content}
                             </TypingAnimation>
                         </div>

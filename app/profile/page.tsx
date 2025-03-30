@@ -7,8 +7,8 @@ import { AnimatedCircularProgressBarLarge } from "@/components/magicui/animated-
 interface UserData {
   username: string;
   score: number;
-  passed_simulation_ids: string;
-  passed_cyber_simulation_ids: string;
+  passed_simulation_ids: number[];
+  passed_cyber_simulation_ids: number[];
 }
 
 export default function UserProfile() {
@@ -18,6 +18,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     axiosInstance.get("/users/me").then((res) => {
+      res.data.passed_simulation_ids = JSON.parse(res.data.passed_simulation_ids);
+      res.data.passed_cyber_simulation_ids = JSON.parse(res.data.passed_cyber_simulation_ids);
       setUser(res.data);
     });
 
@@ -44,7 +46,7 @@ export default function UserProfile() {
           </div>
 
           <div className="flex flex-col mb-6 items-center">
-            <p className="text-lg font-semibold mb-2">Завершенные задачи</p>
+            <p className="text-lg font-semibold mb-2">До следующего уровня</p>
             <AnimatedCircularProgressBarLarge
               max={100}
               min={0}

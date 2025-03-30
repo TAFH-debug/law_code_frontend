@@ -12,7 +12,7 @@ export const Hero = () => {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-xxl text-center justify-center">
-        <span className={title()}>Интерактивная обучения полицейских:&nbsp;</span>
+        <span className={title()}>Интерактивная платформа для обучения полицейских:&nbsp;</span>
         <br />
         <span className={title({ color: "blue" })}>реальные сценарии&nbsp;</span>
         <span className={title()}>—&nbsp;</span>
